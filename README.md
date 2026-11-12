@@ -95,7 +95,7 @@ The application will open in your browser.
 
 Try the Sustainable Product Advisor online:
 
-**[Open the Application]((https://sustainable-appuct-advisor-g12.streamlit.app/))**
+**[Open the Application](https://sustainable-appuct-advisor-g12.streamlit.app/)**
 
 ## Academic Information
 
