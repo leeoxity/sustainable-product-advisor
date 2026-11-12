@@ -152,4 +152,3 @@ if submitted:
         except Exception as error:
             st.error(f"The expert system could not run: {error}")
 
-st.caption("Academic decision-support prototype. Recommendations depend on the twelve approved IF–THEN rules.")
