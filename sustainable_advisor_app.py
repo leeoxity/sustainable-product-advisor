@@ -1,6 +1,6 @@
 import streamlit as st
 
-# Compatibility for Experta's older frozendict dependency
+# Fix compatibility with older Experta dependencies
 import collections
 import collections.abc
 for name in ("Mapping", "MutableMapping", "Sequence", "Set", "Hashable", "Iterable"):
@@ -9,12 +9,12 @@ for name in ("Mapping", "MutableMapping", "Sequence", "Set", "Hashable", "Iterab
 
 from experta import Fact, Rule, KnowledgeEngine, OR
 
-
+# Expert system with 12 decision rules
 class SustainableAdvisor(KnowledgeEngine):
     def __init__(self):
         super().__init__()
         self.result = None
-
+# Save the selected recommendation and stop the program
     def recommend(self, number, title, explanation):
         self.declare(Fact(
             recommendation=title,
@@ -117,7 +117,7 @@ class SustainableAdvisor(KnowledgeEngine):
     def rule_12_warranty(self):
         self.recommend(12, "Repair under Warranty", "Check the manufacturer's warranty remedy before paying for repairs or replacement.")
 
-
+# Run the expert system using the user's answers
 def run_advisor(inputs):
     engine = SustainableAdvisor()
     engine.reset()
@@ -148,7 +148,7 @@ st.caption("CPCS-331  |  Python + Experta  |  Forward Chaining")
 st.write("Answer the relevant questions to receive a sustainable product recommendation.")
 
 
-
+# Create a dropdown question
 def choose(label, values, key):
     return st.selectbox(
         label,
@@ -158,7 +158,7 @@ def choose(label, values, key):
         key=f"{key}_{st.session_state.reset_count}"
     )
 
-
+# Convert Yes/No answers into Boolean values
 def yes_no(label, key):
     value = choose(label, ["Yes", "No"], key)
     return None if value is None else value == "Yes"
@@ -172,14 +172,14 @@ def add(facts, name, value):
 facts = {}
 required = []
 
-
+# Store answers and track missing fields
 def field(name, value):
     if value is None:
         required.append(name)
     else:
         facts[name] = value
 
-
+# Basic product information
 st.subheader("📦 Product Information")
 with st.container(border=True):
     left, right = st.columns(2)
@@ -209,6 +209,7 @@ if no_purchase:
 
 if condition and not no_purchase:
     if condition in ("minor damage", "major damage"):
+# Repair options and warranty details
         st.subheader("🔧 Repair & Warranty")
         with st.container(border=True):
             left, right = st.columns(2)
@@ -238,6 +239,7 @@ if condition and not no_purchase:
         condition == "working fine"
         and facts.get("current_need") == "no longer needed"
     ):
+# Reuse and upgrade options
         st.subheader("♻️ Reuse & Durability")
         with st.container(border=True):
             if condition == "working fine" and facts.get("current_need") == "no longer needed":
@@ -255,7 +257,7 @@ if condition and not no_purchase:
                     field("upgrade_cost_below_half", yes_no("Upgrade cost below 50% of a new item?", "upgrade_cost"))
                 elif upgrade == "unfeasible":
                     field("remaining_useful_life", choose("Remaining useful life", ["short", "long"], "life"))
-
+# Borrowing and replacement alternatives
     st.subheader("🔄 Borrowing & Alternatives")
     with st.container(border=True):
         left, right = st.columns(2)
@@ -274,14 +276,14 @@ st.divider()
 left, right = st.columns([1, 3])
 with left:
     submitted = st.button("Get Recommendation", type="primary", use_container_width=True)
-
+# Reset all questions to their initial state
 with right:
     if st.button("Reset Answers"):
         st.session_state.reset_count += 1
         st.rerun()
 
 
-
+# Check the answers and display the recommendation
 if submitted:
     if required and not no_purchase:
         st.warning("Please answer all applicable questions before getting your recommendation.")
