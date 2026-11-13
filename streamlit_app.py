@@ -51,7 +51,7 @@ def field(name, value):
         facts[name] = value
 
 
-st.subheader("1. Product Information")
+st.subheader("Product Information")
 with st.container(border=True):
     left, right = st.columns(2)
     with left:
@@ -80,7 +80,7 @@ if no_purchase:
 
 if condition and not no_purchase:
     if condition in ("minor damage", "major damage"):
-        st.subheader("2. Repair & Warranty")
+        st.subheader("Repair & Warranty")
         with st.container(border=True):
             left, right = st.columns(2)
             with left:
@@ -106,7 +106,7 @@ if condition and not no_purchase:
                         field("reusable_parts", yes_no("Are functional reusable parts available?", "parts"))
 
     if condition in ("working fine", "outdated"):
-        st.subheader("3. Reuse & Durability")
+        st.subheader("Reuse & Durability")
         with st.container(border=True):
             if condition == "working fine" and facts.get("current_need") == "no longer needed":
                 field("personal_repurposing", choose("Can you repurpose the product?", ["feasible", "not feasible"], "repurpose"))
@@ -124,7 +124,7 @@ if condition and not no_purchase:
                 elif upgrade == "unfeasible":
                     field("remaining_useful_life", choose("Remaining useful life", ["short", "long"], "life"))
 
-    st.subheader("4. Borrowing & Alternatives")
+    st.subheader("Borrowing & Alternatives")
     with st.container(border=True):
         left, right = st.columns(2)
         with left:
