@@ -132,8 +132,7 @@ st.divider()
 left, right = st.columns([1, 3])
 with left:
     submitted = st.button("Get Recommendation", type="primary", use_container_width=True)
-with right:
-    
+with right: 
 if st.button("Reset Answers"):
     for key in list(st.session_state.keys()):
         del st.session_state[key]
