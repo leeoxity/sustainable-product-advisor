@@ -126,13 +126,3 @@ def run_advisor(inputs):
         "recommendation": "No matching rule",
         "explanation": "The knowledge base has no rule for these inputs."
     }
-
-
-if __name__ == "__main__":
-    example = {
-        "item_condition": "minor damage",
-        "repair_feasibility": "feasible",
-        "repair_cost_below_half": True,
-        "warranty_valid": False
-    }
-    print(run_advisor(example))
