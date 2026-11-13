@@ -109,12 +109,6 @@ Try the Sustainable Product Advisor online:
 
 **Project Type:** Group Project – Rule-Based Expert System
 
-**Team Members:**
-- Fatima
-- Lana
-- Tala
-- Samaher
-
 ## Disclaimer
 
 This application is an academic decision-support prototype. Its recommendations are based on predefined rules and user-provided information and should not be considered professional product repair or safety advice.
