@@ -1,3 +1,8 @@
+
+# ========================================================================================================================
+# EXPERT SYSTEM - KNOWLEDGE BASE AND INFERENCE ENGINE
+# ========================================================================================================================
+
 import streamlit as st
 
 # Fix compatibility with older Experta dependencies
@@ -123,12 +128,21 @@ def run_advisor(inputs):
     engine.reset()
     engine.declare(Fact(**inputs))
     engine.run()
+    
     return engine.result or {
         "rule": None,
-        "recommendation": "No matching rule",
-        "explanation": "The knowledge base has no rule for these inputs."
+        "recommendation": "Further Evaluation Needed",
+        "explanation": (
+            "The provided product information does not match any of the "
+            "current decision rules. Consider reviewing the product's "
+            "condition and available alternatives before making a decision."
+        )
     }
 
+
+# ========================================================================================================================
+# STREAMLIT USER INTERFACE
+# ========================================================================================================================
 
 st.set_page_config(page_title="Sustainable Product Advisor", page_icon="🌿", layout="wide")
 
