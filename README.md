@@ -1,3 +1,4 @@
+
 # Sustainable Product Advisor
 
 **A Rule-Based Expert System for Sustainable Purchasing and Product Reuse**
@@ -19,7 +20,9 @@ The system aims to reduce unnecessary consumption, extend product lifespans, and
 - A knowledge base containing 12 IF–THEN rules.
 - Forward chaining for rule-based reasoning.
 - Automatic recommendation based on user-provided information.
+- Rule priorities to resolve conflicting recommendations.
 - Clear explanations and identification of the applied rule.
+- Reset Answers button to restart the questionnaire.
 - Accessible through a web browser without installing software.
 
 ## Recommendations
@@ -38,6 +41,8 @@ Depending on the user's answers, the system may recommend:
 | Parts Recovery | Recover functional components from a damaged product. |
 | Repair under Warranty | Request manufacturer service when warranty conditions are met. |
 
+If no rule matches the provided information, the system displays a "No matching rule" message.
+
 ## Technologies Used
 
 | Technology | Purpose |
@@ -50,26 +55,23 @@ Depending on the user's answers, the system may recommend:
 
 ## How the System Works
 
-1. The user provides information about the product.
-2. The system collects relevant facts from the answers.
-3. The Experta inference engine evaluates the IF–THEN rules using forward chaining.
-4. If multiple rules match, rule priorities determine the selected recommendation.
-5. The final recommendation, explanation, and applied rule number are displayed.
+1. The user provides information about the product through the web interface.
+2. The system collects relevant facts from the user's answers.
+3. The Experta inference engine evaluates the 12 IF–THEN rules using forward chaining.
+4. If multiple rules match, rule priorities (salience) determine the selected recommendation.
+5. The system displays the final recommendation, explanation, and applied rule number.
 
 ## Project Structure
 
 ```text
 sustainable-product-advisor/
 │
-├── streamlit_app.py
-├── sustainable_advisor_engine.py
+├── sustainable_advisor_app.py
 ├── requirements.txt
 └── README.md
 ```
 
-**streamlit_app.py** — Handles the web interface and user inputs.
-
-**sustainable_advisor_engine.py** — Contains the knowledge base, inference engine, and recommendation logic.
+**sustainable_advisor_app.py** — Contains the complete application, including the Streamlit web interface, 12 IF–THEN rules, Experta inference engine, and recommendation logic.
 
 **requirements.txt** — Lists the required Python libraries.
 
@@ -86,10 +88,10 @@ python -m pip install -r requirements.txt
 Run the application:
 
 ```bash
-python -m streamlit run streamlit_app.py
+python -m streamlit run sustainable_advisor_app.py
 ```
 
-The application will open in your browser.
+The application will open in your web browser.
 
 ## Live Application
 
