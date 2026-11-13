@@ -105,7 +105,10 @@ if condition and not no_purchase:
                     if hazardous is False:
                         field("reusable_parts", yes_no("Are functional reusable parts available?", "parts"))
 
-    if condition in ("working fine", "outdated"):
+    if condition == "outdated" or (
+        condition == "working fine"
+        and facts.get("current_need") == "no longer needed"
+    ):
         st.subheader("♻️ Reuse & Durability")
         with st.container(border=True):
             if condition == "working fine" and facts.get("current_need") == "no longer needed":
