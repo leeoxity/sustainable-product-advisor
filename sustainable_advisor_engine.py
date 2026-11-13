@@ -38,7 +38,7 @@ class SustainableAdvisor(KnowledgeEngine):
         self.recommend(2, "Repair", "Repair the minor defect instead of replacing the item.")
 
     # Rule 3
-    @Rule(Fact(item_condition="major damage", repair_feasibility="unfeasible",
+    @Rule(Fact(item_condition="major damage", repair_feasibility="unfeasible",current_need="still needed",
                need_duration="short-term"), salience=60)
     def rule_3_borrow(self):
         self.recommend(3, "Borrowing", "Borrow a temporary replacement instead of buying a new item.")
@@ -57,10 +57,13 @@ class SustainableAdvisor(KnowledgeEngine):
         self.recommend(5, "Upgrade", "Improve the item instead of buying a replacement.")
 
     # Rule 6
-    @Rule(Fact(item_condition="major damage", repair_feasibility="unfeasible",
+    @Rule(Fact(item_condition="major damage", repair_feasibility="unfeasible",current_need="no longer needed",
                contains_hazardous_parts=False, reusable_parts=True), salience=10)
     def rule_6_parts_recovery(self):
-        self.recommend(6, "Parts Recovery", "Recover functional, non-hazardous parts for reuse.")
+        self.recommend(
+            6,
+            "Parts Recovery",
+            "Recover functional parts from the damaged product for reuse.")
 
     # Rule 7
     @Rule(Fact(usage_frequency="occasionally", borrowing_available=True), salience=50)
@@ -81,18 +84,18 @@ class SustainableAdvisor(KnowledgeEngine):
         self.recommend(9, "Replacement", "Select a durable replacement for an outdated, non-upgradable item.")
 
     # Rule 10
-    @Rule(Fact(item_condition="major damage", repair_feasibility="unfeasible",
+    @Rule(Fact(item_condition="major damage", repair_feasibility="unfeasible",current_need="still needed",
                need_duration="long-term", secondhand_available=True,
                secondhand_cost_below_half=True), salience=40)
     def rule_10_secondhand(self):
-        self.recommend(10, "Second-hand Purchase", "Choose a suitable used item costing less than half the new-item price.")
+        self.recommend(10, "Second-hand Purchase", "Buy a suitable second-hand product instead of a new one.")
 
     # Rule 11
     @Rule(
         OR(
-            Fact(item_condition="major damage", repair_feasibility="unfeasible",
+            Fact(item_condition="major damage", repair_feasibility="unfeasible",current_need="still needed",
                  need_duration="long-term", secondhand_available=False),
-            Fact(item_condition="major damage", repair_feasibility="unfeasible",
+            Fact(item_condition="major damage", repair_feasibility="unfeasible",current_need="still needed",
                  need_duration="long-term", secondhand_available=True,
                  secondhand_cost_below_half=False)
         ),
