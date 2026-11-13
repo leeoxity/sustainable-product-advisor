@@ -1,6 +1,9 @@
 import streamlit as st
 from sustainable_advisor_engine import run_advisor
 
+if "reset_count" not in st.session_state:
+    st.session_state.reset_count = 0
+    
 st.set_page_config(page_title="Sustainable Product Advisor", page_icon="🌿", layout="wide")
 
 st.markdown("""
@@ -16,8 +19,15 @@ st.caption("CPCS-331  |  Python + Experta  |  Forward Chaining")
 st.write("Answer the relevant questions to receive a sustainable product recommendation.")
 
 
+
 def choose(label, values, key):
-    return st.selectbox(label, values, index=None, placeholder="Select an option", key=key)
+    return st.selectbox(
+        label,
+        values,
+        index=None,
+        placeholder="Select an option",
+        key=f"{key}_{st.session_state.reset_count}"
+    )
 
 
 def yes_no(label, key):
@@ -132,12 +142,12 @@ st.divider()
 left, right = st.columns([1, 3])
 with left:
     submitted = st.button("Get Recommendation", type="primary", use_container_width=True)
-with right: 
-    if st.button("Reset Answers"):
-        for key in list(st.session_state.keys()):
-            del st.session_state[key]
 
+with right:
+    if st.button("Reset Answers"):
+        st.session_state.reset_count += 1
         st.rerun()
+
 
 
 if submitted:
